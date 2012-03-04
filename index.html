@@ -4,16 +4,17 @@
         
         <style type="text/css">
         #battle {
-            border: 1px solid #eee;
-            margin: auto;
-            margin-top: 25px;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
             display: block;
             
             background: #86C67C;
-            
-            -webkit-box-shadow: 0px 10px 10px #ddd;
-            -moz-box-shadow: 0px 10px 10px #ddd;
-            box-shadow: 0px 10px 10px #ddd;
+        }
+
+        body {
+            margin: 0;
         }
         </style>
         
@@ -25,6 +26,7 @@
             var socket = io.connect('http://localhost');
             var canvas = document.getElementById('battle');
             var context = canvas.getContext('2d');
+            var server_size = {x: 1280, y: 1024};
             
             var colour = {
                 red: 'red',
@@ -32,6 +34,11 @@
                 green: 'green',
                 white: 'white'
             }
+
+            socket.on('scale-factor', function(data) {
+                server_size.x = data.x;
+                server_size.y = data.y;
+            })
             
             var addMessage = function (message) {
                 $('#messages').prepend($('<li />').html(message));
@@ -47,6 +54,9 @@
             }
             
             var draw = function (players) {
+                context.canvas.width  = window.innerWidth;
+                context.canvas.height = window.innerHeight;
+
                 _.each(players, function (player) {
                     var size = 5;
                     
@@ -59,7 +69,10 @@
                         var x = player.pos.x - size/2;
                         var y = player.pos.y - size/2;
                     }
-                    
+
+                    x = x / server_size.x * context.canvas.width;
+                    y = y / server_size.y * context.canvas.height;
+
                     context.fillStyle = colour[team];
                     context.strokeStyle = colour[team];
                     
@@ -111,12 +124,16 @@
              $('body').keyup(function (data) {
                  socket.emit('direction-update', '');
              });
+
+
         });
+
+
+        
         </script>
     </head>
     <body>
-        <canvas id="battle" width="800" height="600"></canvas>
-        <ul id="messages"></ul>
+        <canvas id="battle"></canvas>
     </body>
 </html>
 

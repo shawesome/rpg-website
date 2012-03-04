@@ -3,7 +3,7 @@ var TEAMS = ['red', 'blue'];
 var TEAM_COUNT = 10; // Number of entities on each team
 var WALK_SPEED = 5;
 var FPS = 30;
-var MAX = {x: 800, y: 600};
+var MAX = {x: 1280, y: 1024};
 
 // Globals
 var id = 0;
@@ -27,6 +27,7 @@ app.get('/', function (req, res) {
 
 io.sockets.on('connection', function (socket) {
     socket.emit('message', 'Welcome to the game'); 
+    socket.emit('scale-factor', {x: MAX.x, y: MAX.y}); 
     
     var player = new Entity({ x: 10, y: 10 }, 'green', false);
     entities.push(player);
