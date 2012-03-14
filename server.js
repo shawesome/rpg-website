@@ -1,6 +1,4 @@
 // Constants
-var TEAMS = ['red', 'blue'];
-var TEAM_COUNT = 10; // Number of entities on each team
 var WALK_SPEED = 5;
 var FPS = 30;
 var MAX = {x: 1280, y: 1024};
@@ -51,21 +49,12 @@ var Entity = function(pos, team, npc) {
     this.id = id++;
     this.pos = pos;
     this.team = team;
-    this.npc = npc;
-    this.dead = false
-    switch (team) {
-        case 'red':  this.orientation = 'left';  break;
-        case 'blue': this.orientation = 'right'; break;
-    }
     this.action = 'walk';
 
     this.update = function() {
-        if (this.npc && this.isColliding()) {
-            this.dead = true;
-        } else {
-            switch(this.action) {
-                case 'walk': this.walk(); break;
-            }
+        console.log('foo:' + this.action);
+        switch(this.action) {
+            case 'walk': this.walk(); break;
         }
     }
 
@@ -116,30 +105,10 @@ var Entity = function(pos, team, npc) {
     }
 }
 
-function createBots() {
-    for (var i in TEAMS) {
-        for (var j = 0; j < TEAM_COUNT; j++) {
-            createBot(TEAMS[i]);
-        }
-    }
-}
-
-function createBot(team) {
-    var e = new Entity({ x: Math.random() * MAX.x, y: Math.random() * MAX.y }, team, true);
-    entities.push(e);
-}
-
 function updateEntities() {
     for (var i in entities) {
         var entity = entities[i];
         entity.update();
-        
-        if (entity.dead) {
-            var team = entity.team; team = team.charAt(0).toUpperCase() + team.slice(1);
-            createBot(entity.team);
-            io.sockets.emit('message', 'Current <strong>Bot #' + i + '</strong> (' + team + ' team) has died'); 
-            entities.splice(i,1);
-        }
     }
 }
 
@@ -152,7 +121,6 @@ function gameLoop() {
 
 // Create all the entities in the game (initially a bunch of bots)
 var entities = [];
-createBots();
 
 // Enter gameloop
 gameLoop();

@@ -3,7 +3,7 @@
         <title>BATTLE!</title>
         
         <style type="text/css">
-        #battle {
+        #main {
             width: 100%;
             height: 100%;
             margin: 0;
@@ -24,7 +24,7 @@
         <script type="text/javascript">
         $(function () {
             var socket = io.connect('http://localhost');
-            var canvas = document.getElementById('battle');
+            var canvas = document.getElementById('main');
             var context = canvas.getContext('2d');
             var server_size = {x: 1280, y: 1024};
             
@@ -40,15 +40,6 @@
                 server_size.y = data.y;
             })
             
-            var addMessage = function (message) {
-                $('#messages').prepend($('<li />').html(message));
-                $('#messages li:nth-child(n+15)').remove();
-            }
-            
-            socket.on('message', function (data) {
-                addMessage(data);
-            })
-            
             var clear = function () {
                 context.clearRect(0, 0, canvas.width, canvas.height);
             }
@@ -60,15 +51,9 @@
                 _.each(players, function (player) {
                     var size = 5;
                     
-                    if (player.dead) {
-                        var team = colour.white;
-                        var x = this.x;
-                        var y = this.y;
-                    } else {
-                        var team = player.team;
-                        var x = player.pos.x - size/2;
-                        var y = player.pos.y - size/2;
-                    }
+                    var team = 'red';
+                    var x = player.pos.x - size/2;
+                    var y = player.pos.y - size/2;
 
                     x = x / server_size.x * context.canvas.width;
                     y = y / server_size.y * context.canvas.height;
@@ -133,7 +118,7 @@
         </script>
     </head>
     <body>
-        <canvas id="battle"></canvas>
+        <canvas id="main"></canvas>
     </body>
 </html>
 
