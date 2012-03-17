@@ -26,7 +26,6 @@
             var socket = io.connect('http://localhost');
             var canvas = document.getElementById('main');
             var context = canvas.getContext('2d');
-            var server_size = {x: 1280, y: 1024};
             
             var colour = {
                 red: 'red',
@@ -35,11 +34,6 @@
                 white: 'white'
             }
 
-            socket.on('scale-factor', function(data) {
-                server_size.x = data.x;
-                server_size.y = data.y;
-            })
-            
             var clear = function () {
                 context.clearRect(0, 0, canvas.width, canvas.height);
             }
@@ -54,9 +48,6 @@
                     var team = 'red';
                     var x = player.pos.x - size/2;
                     var y = player.pos.y - size/2;
-
-                    x = x / server_size.x * context.canvas.width;
-                    y = y / server_size.y * context.canvas.height;
 
                     context.fillStyle = colour[team];
                     context.strokeStyle = colour[team];

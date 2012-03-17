@@ -1,7 +1,6 @@
 // Constants
 var WALK_SPEED = 5;
 var FPS = 30;
-var MAX = {x: 1280, y: 1024};
 
 // Globals
 var id = 0;
@@ -25,7 +24,6 @@ app.get('/', function (req, res) {
 
 io.sockets.on('connection', function (socket) {
     socket.emit('message', 'Welcome to the game'); 
-    socket.emit('scale-factor', {x: MAX.x, y: MAX.y}); 
     
     var player = new Entity({ x: 10, y: 10 }, 'green', false);
     entities.push(player);
@@ -52,7 +50,6 @@ var Entity = function(pos, team, npc) {
     this.action = 'walk';
 
     this.update = function() {
-        console.log('foo:' + this.action);
         switch(this.action) {
             case 'walk': this.walk(); break;
         }
@@ -87,19 +84,9 @@ var Entity = function(pos, team, npc) {
         switch(axis) {
             case 'x':
                 this.pos.x += speed;
-                if (this.pos.x < 0) {
-                    this.pos.x = MAX.x;
-                } else if (this.pos.x > MAX.x) {
-                    this.pos.x = 0;
-                }
                 break;
             case 'y':
                 this.pos.y += speed;
-                if (this.pos.y < 0) {
-                    this.pos.y = MAX.y;
-                } else if (this.pos.y > MAX.y) {
-                    this.pos.y = 0;
-                }
                 break;
         }
     }
