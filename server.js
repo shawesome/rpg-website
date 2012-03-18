@@ -8,6 +8,7 @@ var id = 0;
 var express = require('express');
 var app = express.createServer()
 var io = require('socket.io').listen(app);
+var fs = require('fs');
 var _ = require('./public/underscore.js')._;
 
 io.set('log level', 1); // Reduce the log messages
@@ -21,6 +22,11 @@ app.listen(8080);
 app.get('/', function (req, res) {
     res.sendfile(__dirname + '/index.html');
 });
+
+fs.readFile(__dirname + '/public/map.json', function(err, data) {
+	console.log(JSON.parse(data));
+});
+
 
 io.sockets.on('connection', function (socket) {
     socket.emit('message', 'Welcome to the game'); 
