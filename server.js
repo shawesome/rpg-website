@@ -4,12 +4,14 @@ var FPS = 30;
 
 // Globals
 var id = 0;
+var map;
 
 var express = require('express');
 var app = express.createServer()
 var io = require('socket.io').listen(app);
 var fs = require('fs');
 var _ = require('./public/underscore.js')._;
+
 
 io.set('log level', 1); // Reduce the log messages
 
@@ -24,12 +26,11 @@ app.get('/', function (req, res) {
 });
 
 fs.readFile(__dirname + '/public/map.json', function(err, data) {
-	console.log(JSON.parse(data));
+	map = JSON.parse(data);
 });
 
-
 io.sockets.on('connection', function (socket) {
-    socket.emit('message', 'Welcome to the game'); 
+    socket.emit('map', map); 
     
     var player = new Entity({ x: 10, y: 10 }, 'green', false);
     entities.push(player);
@@ -46,7 +47,7 @@ io.sockets.on('connection', function (socket) {
         } else if (data == '') {
             player.orientation = null;
         }
-    })
+    });
 });
 
 var Entity = function(pos, team, npc) {
