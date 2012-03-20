@@ -33,7 +33,7 @@ fs.readFile(__dirname + '/public/map.json', function(err, data) {
 io.sockets.on('connection', function (socket) {
     socket.emit('map', map); 
     
-    var player = new Entity({ x: 10, y: 10 }, 'green', false);
+    var player = new Entity({ x: 10, y: 10 }, 'green', false, socket.id);
     entities.push(player);
     
     socket.on('direction-update', function (data) {
@@ -51,11 +51,13 @@ io.sockets.on('connection', function (socket) {
     });
 });
 
-var Entity = function(pos, team, npc) {
+var Entity = function(pos, team, npc, socketId) {
     this.id = id++;
     this.pos = pos;
     this.team = team;
     this.action = 'walk';
+    this.socketId = socketId;
+    this.isViewingPage = false;
 
     this.update = function() {
         switch(this.action) {
@@ -86,6 +88,21 @@ var Entity = function(pos, team, npc) {
             case 'up':    this._walk({x: 0, y: -WALK_SPEED}); break;
             case 'down':  this._walk({x: 0, y:  WALK_SPEED}); break;
         }
+
+        var page = this.getObjectsAt(this.pos, "Page");
+        if (!this.isViewingPage) {
+            if (page.length == 1) {
+                this.isViewingPage = true;
+                // There is some content which needs to be displayed.
+                fs.readFile(__dirname + '/public/general.html', function(err, data) {
+                    io.sockets.socket(this.socketId).emit('page', data.toString());
+                }.bind(this));
+            }
+        } else {
+            if (page.length == 0) {
+                this.isViewingPage = false;
+            }
+        }
     }
 
     this._walk = function(direction) {
@@ -101,7 +118,7 @@ var Entity = function(pos, team, npc) {
 
     this.canMoveTo = function(pos) {
         var impassableObjects = this.getObjectsAt(pos, "Impassable");
-        if (impassableObjects == false) {
+        if (impassableObjects.length == 0) {
             return true;
         } else {
             return false;
@@ -110,12 +127,16 @@ var Entity = function(pos, team, npc) {
 
     this.getObjectsAt = function(pos, layerName) {
         var layer = getLayer(map, layerName);
-        return _.any(layer.objects, function (object) {
-            return (object.x <= pos.x &&
+        objects = [];
+        _.each(layer.objects, function (object) {
+            if (object.x <= pos.x &&
                 pos.x <= object.x + object.width &&
                 object.y <= pos.y &&
-                pos.y <= object.y + object.height);
-        }, this);
+                pos.y <= object.y + object.height) {
+                objects.push(object);
+            }
+        });
+        return objects;
     }
 }
 

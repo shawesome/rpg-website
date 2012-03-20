@@ -113,6 +113,10 @@
             socket.on('map', function (data) {
                 map = data;
             });
+
+            socket.on('page', function(data) {
+                $('#content').html(data);
+            });
             
             /**
              * Keyboard Interaction
@@ -155,6 +159,7 @@
         </script>
     </head>
     <body>
+        <div id="content"></div>
         <canvas id="main"></canvas>
         <img id="tileset" style="display: none" src="village.png"/>
     </body>
