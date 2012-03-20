@@ -101,7 +101,6 @@ var Entity = function(pos, team, npc) {
 
     this.canMoveTo = function(pos) {
         var impassableObjects = this.getObjectsAt(pos, "Impassable");
-        console.log(impassableObjects);
         if (impassableObjects == false) {
             return true;
         } else {
