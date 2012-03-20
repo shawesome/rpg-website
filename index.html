@@ -18,6 +18,7 @@
         
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="underscore.js"></script>
+        <script type="text/javascript" src="common.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script type="text/javascript">
         $(function () {
@@ -67,7 +68,7 @@
             };
 
             var renderLayer = function(layerName) {
-                var layer = getLayer(layerName);
+                var layer = getLayer(map, layerName);
                 
                 var tileset = map.tilesets[0];
 
@@ -101,15 +102,6 @@
 
                 var img = document.getElementById('tileset');
                 context.drawImage(img, sourceX, sourceY, tileset.tilewidth, tileset.tileheight, targetX, targetY, tileset.tilewidth, tileset.tileheight);
-            }
-
-            var getLayer = function(name) {
-                for (key in map.layers) {
-                    if (name == map.layers[key].name) {
-                        return map.layers[key];
-                    }
-                }
-                return null;
             }
             
             socket.on('update', function (data) {

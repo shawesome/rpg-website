@@ -11,6 +11,7 @@ var app = express.createServer()
 var io = require('socket.io').listen(app);
 var fs = require('fs');
 var _ = require('./public/underscore.js')._;
+eval(fs.readFileSync('public/common.js') + '');
 
 
 io.set('log level', 1); // Reduce the log messages
@@ -80,22 +81,42 @@ var Entity = function(pos, team, npc) {
         direction = { x: 0, y: 0 };
         
         switch (this.orientation) {
-            case 'left':  this._walk('x', -WALK_SPEED); break;
-            case 'right': this._walk('x',  WALK_SPEED); break;
-            case 'up':    this._walk('y', -WALK_SPEED); break;
-            case 'down':  this._walk('y',  WALK_SPEED); break;
+            case 'left':  this._walk({x: -WALK_SPEED, y: 0}); break;
+            case 'right': this._walk({x:  WALK_SPEED, y: 0}); break;
+            case 'up':    this._walk({x: 0, y: -WALK_SPEED}); break;
+            case 'down':  this._walk({x: 0, y:  WALK_SPEED}); break;
         }
     }
 
-    this._walk = function(axis, speed) {
-        switch(axis) {
-            case 'x':
-                this.pos.x += speed;
-                break;
-            case 'y':
-                this.pos.y += speed;
-                break;
+    this._walk = function(direction) {
+        newPos = {
+            x: this.pos.x + direction.x,
+            y: this.pos.y + direction.y
+        };
+
+        if(this.canMoveTo(newPos)) {
+            this.pos = newPos;
         }
+    }
+
+    this.canMoveTo = function(pos) {
+        var impassableObjects = this.getObjectsAt(pos, "Impassable");
+        console.log(impassableObjects);
+        if (impassableObjects == false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    this.getObjectsAt = function(pos, layerName) {
+        var layer = getLayer(map, layerName);
+        return _.any(layer.objects, function (object) {
+            return (object.x <= pos.x &&
+                pos.x <= object.x + object.width &&
+                object.y <= pos.y &&
+                pos.y <= object.y + object.height);
+        }, this);
     }
 }
 
