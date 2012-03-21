@@ -144,6 +144,7 @@
                  
                  if (orientation) {
                      socket.emit('direction-update', orientation);
+                     data.preventDefault();
                  }
              });
              
