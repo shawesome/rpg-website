@@ -94,12 +94,14 @@ var Entity = function(pos, team, npc, socketId) {
             if (page.length == 1) {
                 this.isViewingPage = true;
                 // There is some content which needs to be displayed.
-                fs.readFile(__dirname + '/public/general.html', function(err, data) {
+                var htmlFile = page[0].properties.location;
+                fs.readFile(__dirname + '/' + htmlFile, function(err, data) {
                     io.sockets.socket(this.socketId).emit('page', data.toString());
                 }.bind(this));
             }
         } else {
             if (page.length == 0) {
+                io.sockets.socket(this.socketId).emit('page', '');
                 this.isViewingPage = false;
             }
         }
