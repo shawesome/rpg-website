@@ -5,7 +5,7 @@
  </tileset>
  <layer name="Grass" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt1z1OwzAYxnHfANGpHYAdln6kFRwFyg2a7/sAe7lRyw0Sx3ZOwL8LEkiIliS1LXn4Kc/AYOV9H+JuL4V4x9bS82MhxA77Rbd8OxLibvT38+H+uL879fkcCfGEddQt25rD1zw4ww77qFvu+/2ePI8l7xTrZbdsfR5n7sdg8/ix75upEDESpMiQo0A5PV8/Dv8PuvSj4qw1JBooaBi0U3/6sZkxDyRIkSFHgXJ2XD8eL35/by9jIV7xNh62HxVnrSHRQEHDoJ1178fVRIhr3EwG7seceSBBigw5CpRzf74fFWetIdFAQcOgnXvUD3YkRoIUGXIUKBf+fD8q1JBooKBh0B7x/Rjq/nRyPxAjQYoMOQqUHt2vKtSQaKCgYdB6dL/aIEaCFBlyFCjPdL867GbnfnCmGhINFDQM2qVH96sV80CCFBlyFChXHvWDs9aQaKCgYdCu/OnHf3Mfd38Xch+/jV3Iffw2diH3sZsuZNt7HfoR+uFytr3XoR+hHy5n23sd+hH64XK2vdehH6EfLmfbex36Efrhcra916EfoR8uZ9t7HfrxPX8CqTsdnQ==
+   eJzt1zluI1cQBuBOtcGQuIiLSIqpnWiHfRTP+AYS15sMV23c0pkbzfgG3HmC+SZxYMCwZFJi02DwoStgUOiqn+/158Mg+MLnNT3/vAyCr3y7XK7++SgIfjn69+dvv77sd699/nEVBB/4eLVcva45/DUPPXzl29Vy9arf76vnce2d8vF6uXrt83jnfLzZPP6277dnQXBHgSIlylSonr1fPn78HyyTj6FeR4yZMGXGnMXZ5uTj9tw8KFCkRJkK1fOX5eP3n/75vXUSQdCll3jbfAz1OmLMhCkz5izOl89HJhkEWXLJN87HhXlQoEiJMhWqF5tzfgz1OmLMhCkz5iwuNigfduSOAkVKlKlQvdyc82PIiDETpsyYs3jB+fFW96dX54M7ChQpUaZCdYPuV0NGjJkwZcacxQbdr265o0CREmUqVN/pfvVjN5fOh55GjJkwZcacxfUG3a9uzIMCRUqUqVC92aB86HXEmAlTZsxZ3GxOPv5rvYq7fxjqVXwbh6FexbdxGOpV7GYY6nXv9TYf/898HO4EwRERosSIc0yCJCnSnJAhS45T8jvhyMcnfdSo06BJizb3PPDIE8906NKjz2AnHPk43DUPIkSJEeeYBElSpDkhQ5Ycp+R3w5GPT/qoUadBkxZt7nngkSee6dClR5/BbkjysWceRIgSI84xCZKkSHNChiw5TsnvhSQf+qhRp0GTFm3ueeCRJ57p0KVHn8FeSPKxbx5EiBIjzjEJkqRIc0KGLDlOye+HJB/6qFGnQZMWbe554JEnnunQpUefwX5I8nFgHkSIEiPOMQmSpEhzQoYsOU7JH4QkH/qoUadBkxZt7nngkSee6dClR5/BQTjyse693t6vtt8fYa7XvdfbfGzzEeZ63Xu9zcc2H2Gu173Xq6q/A4kB1oo=
   </data>
  </layer>
  <layer name="Buildings" width="50" height="50">
@@ -18,8 +18,35 @@
   <object x="18" y="18" width="13" height="99"/>
   <object x="31" y="17" width="194" height="21"/>
   <object x="224" y="18" width="13" height="99"/>
-  <object x="50" y="42" width="154" height="75"/>
   <object x="288" y="73" width="62" height="62"/>
   <object x="115" y="101" width="28" height="33"/>
+  <object x="48" y="95" width="39" height="26"/>
+  <object x="167" y="93" width="39" height="28"/>
+  <object x="48" y="37" width="158" height="64"/>
+  <object x="105" y="96" width="46" height="26"/>
+  <object x="1" y="220" width="16" height="58"/>
+  <object x="17" y="236" width="19" height="56"/>
+  <object x="40" y="249" width="12" height="46"/>
+  <object x="49" y="247" width="46" height="22"/>
+  <object x="79" y="266" width="21" height="28"/>
+  <object x="97" y="240" width="15" height="50"/>
+  <object x="115" y="231" width="15" height="45"/>
+ </objectgroup>
+ <objectgroup color="#9b3da4" name="Page" width="50" height="50">
+  <object x="88" y="101" width="17" height="18">
+   <properties>
+    <property name="location" value="public/general.html"/>
+   </properties>
+  </object>
+  <object x="152" y="104" width="16" height="16">
+   <properties>
+    <property name="location" value="public/general.html"/>
+   </properties>
+  </object>
+  <object x="50" y="268" width="30" height="26">
+   <properties>
+    <property name="location" value="public/derp.html"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
