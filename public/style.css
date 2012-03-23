@@ -17,4 +17,12 @@ body {
 #content {
     margin: auto;
     width: 1000px;
+	margin-top: 20px;
+}
+
+#content div {
+	display: none;
+	background: white;
+	border: 10px black solid;
+	padding: 20px;
 }

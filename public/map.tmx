@@ -10,10 +10,10 @@
  </layer>
  <layer name="Buildings" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
- <objectgroup name="Impassable" width="50" height="50">
+ <objectgroup name="Impassable" width="50" height="50" visible="0">
   <object x="852" y="116"/>
   <object x="18" y="18" width="13" height="99"/>
   <object x="31" y="17" width="194" height="21"/>
@@ -32,20 +32,20 @@
   <object x="97" y="240" width="15" height="50"/>
   <object x="115" y="231" width="15" height="45"/>
  </objectgroup>
- <objectgroup color="#9b3da4" name="Page" width="50" height="50">
+ <objectgroup color="#9b3da4" name="Page" width="50" height="50" visible="0">
   <object x="88" y="101" width="17" height="18">
    <properties>
-    <property name="location" value="public/general.html"/>
+    <property name="content" value="herp"/>
    </properties>
   </object>
   <object x="152" y="104" width="16" height="16">
    <properties>
-    <property name="location" value="public/general.html"/>
+    <property name="content" value="herp"/>
    </properties>
   </object>
   <object x="50" y="268" width="30" height="26">
    <properties>
-    <property name="location" value="public/derp.html"/>
+    <property name="content" value="derp"/>
    </properties>
   </object>
  </objectgroup>

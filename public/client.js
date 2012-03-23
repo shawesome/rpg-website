@@ -91,8 +91,12 @@ $(function () {
         map = data;
     });
 
-    socket.on('page', function(data) {
-        $('#content').html(data);
+    socket.on('show-content', function(data) {
+        $('#' + data).fadeIn(2000);
+    });
+
+    socket.on('hide-content', function(data) {
+        $('#content div').fadeOut(2000);
     });
     
     /**

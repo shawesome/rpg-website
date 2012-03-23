@@ -247,7 +247,7 @@
                  "name":"",
                  "properties":
                     {
-                     "location":"public\/general.html"
+                     "content":"herp"
                     },
                  "type":"",
                  "width":17,
@@ -259,7 +259,7 @@
                  "name":"",
                  "properties":
                     {
-                     "location":"public\/general.html"
+                     "content":"herp"
                     },
                  "type":"",
                  "width":16,
@@ -271,7 +271,7 @@
                  "name":"",
                  "properties":
                     {
-                     "location":"public\/derp.html"
+                     "content":"derp"
                     },
                  "type":"",
                  "width":30,
