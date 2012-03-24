@@ -4,14 +4,21 @@ $(function () {
     var canvas = document.getElementById('main');
     var context = canvas.getContext('2d');
     var map = null;
-    
-    var colour = {
-        red: 'red',
-        blue: 'blue',
-        green: 'green',
-        white: 'white'
-    }
 
+    // Sprite constants
+    var spriteWidth = 24;
+    var spriteHeight = 32;
+    var spriteOffsetMap = {
+        'stationary-up': {y: 128, x: 24},
+        'stationary-right': {y: 160, x: 24},
+        'stationary-down': {y: 192, x: 24},
+        'stationary-left': {y: 224, x: 24},
+        'walk-up': {y: 128, x: 0},
+        'walk-right': {y: 160, x: 0},
+        'walk-down': {y: 192, x: 0},
+        'walk-left': {y: 224, x: 0},
+    };
+    
     var clear = function () {
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
@@ -24,25 +31,17 @@ $(function () {
         renderLayer('Buildings');
 
         _.each(players, function (player) {
-            var size = 5;
-            
-            var team = 'red';
-            var x = player.pos.x - size/2;
-            var y = player.pos.y - size/2;
-
-            context.fillStyle = colour[team];
-            context.strokeStyle = colour[team];
-            
-            context.beginPath();
-            context.arc(x, y, size, 0, Math.PI * 2, true); 
-            context.closePath();
-            context.fill();
-            
-            context.textAlign = 'center';
-            context.textBaseline = 'top';
-            context.fillText("#" + player.id, x, y + size);
+            renderPlayer(player);
         });
     };
+    
+    var renderPlayer = function(player) {
+        var img = document.getElementById('link_' + player.colour);
+
+        var spritePos = spriteOffsetMap[player.action + '-' + player.orientation];
+        
+        context.drawImage(img, spritePos.x, spritePos.y, spriteWidth, spriteHeight, player.pos.x - spriteWidth/2, player.pos.y - spriteHeight/2, spriteWidth, spriteHeight);
+    }
 
     var renderLayer = function(layerName) {
         var layer = getLayer(map, layerName);

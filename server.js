@@ -33,31 +33,36 @@ fs.readFile(__dirname + '/public/map.json', function(err, data) {
 io.sockets.on('connection', function (socket) {
     socket.emit('map', map); 
     
-    var player = new Entity({ x: 10, y: 10 }, 'green', false, socket.id);
+    var player = new Entity({ x: 10, y: 10 }, 'blue', false, socket.id);
     entities.push(player);
     
     socket.on('direction-update', function (data) {
         if (data == 'N') {
+	    player.action = 'walk'
             player.orientation = 'up';
         } else if (data == 'S') {
+	    player.action = 'walk'
             player.orientation = 'down';
         } else if (data == 'W') {
+	    player.action = 'walk'
             player.orientation = 'left';
         } else if (data == 'E') {
+	    player.action = 'walk'
             player.orientation = 'right';
         } else if (data == '') {
-            player.orientation = null;
+            player.action = 'stationary';
         }
     });
 });
 
-var Entity = function(pos, team, npc, socketId) {
+var Entity = function(pos, colour, npc, socketId) {
     this.id = id++;
     this.pos = pos;
-    this.team = team;
-    this.action = 'walk';
+    this.colour = colour;
     this.socketId = socketId;
     this.isViewingPage = false;
+    this.action = 'stationary';
+    this.orientation = 'down';
 
     this.update = function() {
         switch(this.action) {
