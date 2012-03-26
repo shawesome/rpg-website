@@ -4,19 +4,73 @@ $(function () {
     var canvas = document.getElementById('main');
     var context = canvas.getContext('2d');
     var map = null;
+    var gameLoopsInBetweenAnimationFrames = 2;
+    var playerAnimation = {};
 
     // Sprite constants
     var spriteWidth = 24;
     var spriteHeight = 32;
-    var spriteOffsetMap = {
-        'stationary-up': {y: 128, x: 24},
-        'stationary-right': {y: 160, x: 24},
-        'stationary-down': {y: 192, x: 24},
-        'stationary-left': {y: 224, x: 24},
-        'walk-up': {y: 128, x: 0},
-        'walk-right': {y: 160, x: 0},
-        'walk-down': {y: 192, x: 0},
-        'walk-left': {y: 224, x: 0},
+    var spriteAnimationMap = {
+        'stationary-up': {
+            frames: [
+                {y: 128, x: 24},
+            ], 
+            type: 'circular', 
+        },
+        'stationary-right': {
+            frames: [
+                {y:160, x: 24},
+            ], 
+            type: 'circular', 
+        },
+        'stationary-down':  {
+            frames: [
+                {y:192, x: 24},
+            ], 
+            type: 'circular', 
+        },
+        'stationary-left':  {
+            frames: [
+                {y:224, x: 24},
+            ], 
+            type: 'circular', 
+        },
+        'walk-up':          {
+            frames: [
+                {y:128, x: 0},
+                {y:128, x: 24},
+                {y:128, x: 48},
+                {y:128, x: 24},
+            ], 
+            type: 'circular', 
+        },
+        'walk-right':       {
+            frames: [
+                {y:160, x: 0},
+                {y:160, x: 24},
+                {y:160, x: 48},
+                {y:160, x: 24},
+            ], 
+            type: 'circular', 
+        },
+        'walk-down':        {
+            frames: [
+                {y:192, x: 0},
+                {y:192, x: 24},
+                {y:192, x: 48},
+                {y:192, x: 24},
+            ], 
+            type: 'circular', 
+        },
+        'walk-left':        {
+            frames: [
+                {y:224, x: 0},
+                {y:224, x: 24},
+                {y:224, x: 48},
+                {y:224, x: 24},
+            ], 
+            type: 'circular', 
+        },
     };
     
     var clear = function () {
@@ -38,10 +92,44 @@ $(function () {
     var renderPlayer = function(player) {
         var img = document.getElementById('link_' + player.colour);
 
-        var spritePos = spriteOffsetMap[player.action + '-' + player.orientation];
+        var spritePos = getSpritePos(player);
         
         context.drawImage(img, spritePos.x, spritePos.y, spriteWidth, spriteHeight, player.pos.x - spriteWidth/2, player.pos.y - spriteHeight/2, spriteWidth, spriteHeight);
     }
+
+    var getSpritePos = function(player) {
+        var frames = spriteAnimationMap[player.action + '-' + player.orientation].frames;
+        var animationData = playerAnimation[player.id];
+
+        if(player.action != animationData.lastAction) {
+            // A player has changed action so animation variables need to be reset.
+            animationData.lastAction = player.action;
+            animationData.currentFrame = 0;
+            animationData.frameCounter = 0;
+        }
+    
+
+        if (++animationData.frameCounter == gameLoopsInBetweenAnimationFrames) {
+            // Reset the frame counter
+            animationData.frameCounter = 0;
+
+            var nextFrame = animationData.currentFrame + 1;
+            if (nextFrame >= frames.length) {
+                // We've reached the end of the animation.
+
+                if (animationData.type = "circular") {
+                    // If we need to repeat the animation just reset the current frame.
+                    animationData.currentFrame = 0;
+                } else {
+                    // TODO We currently only have animations which repeat.
+                }
+            } else {
+                animationData.currentFrame = nextFrame;
+            }
+        }
+
+        return frames[animationData.currentFrame];
+    };
 
     var renderLayer = function(layerName) {
         var layer = getLayer(map, layerName);
@@ -88,6 +176,17 @@ $(function () {
     
     socket.on('map', function (data) {
         map = data;
+    });
+
+    socket.on('players', function (data) {
+        _.each(data, function(player) {
+            playerAnimation[player] = { currentFrame: 0, lastAction: 'stationary', frameCounter: 0 };
+        });
+    });
+
+    socket.on('new-player', function (data) {
+        playerAnimation[data] = { currentFrame: 0, lastAction: 'stationary', frameCounter: 0 };
+
     });
 
     socket.on('show-content', function(data) {

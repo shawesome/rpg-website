@@ -1,5 +1,5 @@
 // Constants
-var WALK_SPEED = 5;
+var WALK_SPEED = 2;
 var FPS = 30;
 
 // Globals
@@ -32,9 +32,16 @@ fs.readFile(__dirname + '/public/map.json', function(err, data) {
 
 io.sockets.on('connection', function (socket) {
     socket.emit('map', map); 
-    
+
+    socket.emit('players', _.map(entities, function(entity) {
+	return entity.id;
+    }));
+
     var player = new Entity({ x: 10, y: 10 }, 'blue', false, socket.id);
     entities.push(player);
+    
+    io.sockets.emit('new-player', player.id); 
+
     
     socket.on('direction-update', function (data) {
         if (data == 'N') {
@@ -63,6 +70,7 @@ var Entity = function(pos, colour, npc, socketId) {
     this.isViewingPage = false;
     this.action = 'stationary';
     this.orientation = 'down';
+    
 
     this.update = function() {
         switch(this.action) {
