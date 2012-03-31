@@ -94,7 +94,9 @@ $(function () {
 
         var spritePos = getSpritePos(player);
         
-        context.drawImage(img, spritePos.x, spritePos.y, spriteWidth, spriteHeight, player.pos.x - spriteWidth/2, player.pos.y - spriteHeight/2, spriteWidth, spriteHeight);
+        if (!player.isViewingPage) {
+            context.drawImage(img, spritePos.x, spritePos.y, spriteWidth, spriteHeight, player.pos.x - spriteWidth/2, player.pos.y - spriteHeight/2, spriteWidth, spriteHeight);
+        }
     }
 
     var getSpritePos = function(player) {
