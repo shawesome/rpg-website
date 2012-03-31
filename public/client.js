@@ -81,12 +81,12 @@ $(function () {
         context.canvas.width  = window.innerWidth;
         context.canvas.height = window.innerHeight;
 
-        renderLayer('Grass');
-        renderLayer('Buildings');
-
+        renderLayer('Background');
         _.each(players, function (player) {
             renderPlayer(player);
         });
+        renderLayer('Foreground');
+
     };
     
     var renderPlayer = function(player) {
