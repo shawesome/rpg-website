@@ -37,7 +37,7 @@ io.sockets.on('connection', function (socket) {
 	return entity.id;
     }));
 
-    var player = new Entity({ x: 10, y: 10 }, 'blue', false, socket.id);
+    var player = new Entity({ x: 110, y: 125 }, 'blue', false, socket.id);
     entities.push(player);
     
     io.sockets.emit('new-player', player.id); 

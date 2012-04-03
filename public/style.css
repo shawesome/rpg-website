@@ -1,28 +1,43 @@
 html {overflow-y: scroll;}
 
-#main {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: block;
-    position: fixed;
-    top:0;
-    left:0;
-    z-index: -9999;
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#background {
+    z-index: -100;
+}
+
+#entities {
+    z-index: -99;
+}
+
+#foreground {
+    z-index: -98;
 }
 
 body {
     margin: 0;
 }
 
-#content {
+#page {
     margin: auto;
     width: 1000px;
-	margin-top: 20px;
+}
+
+#content {
+    position: relative;
+}
+
+#canvas-container {
+    position: relative
 }
 
 #content div {
+	margin-top: 20px;
+    position: absolute;
 	display: none;
 	background: white;
 	border: 10px black solid;

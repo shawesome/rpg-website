@@ -1,11 +1,16 @@
 $(function () {
     var server = 'http://localhost:8080';
     var socket = io.connect(server);
-    var canvas = document.getElementById('main');
-    var context = canvas.getContext('2d');
+    var background = document.getElementById('background');
+    var entities = document.getElementById('entities');
+    var foreground = document.getElementById('foreground');
+    var background_context = background.getContext('2d');
+    var entities_context = entities.getContext('2d');
+    var foreground_context = foreground.getContext('2d');
     var map = null;
     var gameLoopsInBetweenAnimationFrames = 2;
     var playerAnimation = {};
+    var first = true;
 
     // Sprite constants
     var spriteWidth = 24;
@@ -74,18 +79,20 @@ $(function () {
     };
     
     var clear = function () {
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        entities_context.clearRect(0, 0, entities.width, entities.height);
     }
     
     var draw = function (players) {
-        context.canvas.width  = window.innerWidth;
-        context.canvas.height = window.innerHeight;
+        entities_context.canvas.width  = window.innerWidth;
+        entities_context.canvas.height = window.innerHeight;
 
-        renderLayer('Background');
+        if (first) { renderLayer('Background', background_context); }
+
         _.each(players, function (player) {
             renderPlayer(player);
         });
-        renderLayer('Foreground');
+    
+        if (first) { renderLayer('Foreground', foreground_context); first = false;}
 
     };
     
@@ -95,7 +102,7 @@ $(function () {
         var spritePos = getSpritePos(player);
         
         if (!player.isViewingPage) {
-            context.drawImage(img, spritePos.x, spritePos.y, spriteWidth, spriteHeight, player.pos.x - spriteWidth/2, player.pos.y - spriteHeight/2, spriteWidth, spriteHeight);
+            entities_context.drawImage(img, spritePos.x, spritePos.y, spriteWidth, spriteHeight, player.pos.x - spriteWidth/2, player.pos.y - spriteHeight/2, spriteWidth, spriteHeight);
         }
     }
 
@@ -133,7 +140,7 @@ $(function () {
         return frames[animationData.currentFrame];
     };
 
-    var renderLayer = function(layerName) {
+    var renderLayer = function(layerName, context) {
         var layer = getLayer(map, layerName);
         
         var tileset = map.tilesets[0];
@@ -143,12 +150,12 @@ $(function () {
 
         for (var i = 0; i < map.height; i++) {
             for (var j = 0; j < map.width; j++) {
-                renderTile(j, i, layer.data[j + i * map.width]);
+                renderTile(j, i, layer.data[j + i * map.width], context);
             }
         }
     };
 
-    var renderTile = function(x, y, tileNo) {
+    var renderTile = function(x, y, tileNo, context) {
         // If 0 then no tile to render
         if (tileNo == 0) {
             return;
@@ -200,38 +207,39 @@ $(function () {
     });
     
     /**
-     * Keyboard Interaction
-     */
-     var current_orientation = '';
-     $('body').keydown(function (data) {
-         var up = [87, 38];
-         var down = [83, 40];
-         var right = [39, 68];
-         var left = [37, 65];
-         
-         var key = data.which;
-         
-         var orientation;
-         
-         if (_.include(up, key)) {
-             orientation = 'N';
-         } else if (_.include(down, key)) {
-             orientation = 'S';
-         } else if (_.include(left, key)) {
-             orientation = 'W';
-         } else if (_.include(right, key)) {
-             orientation = 'E';
-         }
-         
-         if (orientation) {
-             socket.emit('direction-update', orientation);
-             data.preventDefault();
-         }
-     });
-     
-     $('body').keyup(function (data) {
-         socket.emit('direction-update', '');
-     });
+    * Keyboard Interaction
+    */
+    var current_orientation = '';
+    $('body').keydown(function (data) {
+        var up = [87, 38];
+        var down = [83, 40];
+        var right = [39, 68];
+        var left = [37, 65];
+        
+        var key = data.which;
+        
+        var orientation;
+        
+        if (_.include(up, key)) {
+            orientation = 'N';
+        } else if (_.include(down, key)) {
+            orientation = 'S';
+        } else if (_.include(left, key)) {
+            orientation = 'W';
+        } else if (_.include(right, key)) {
+            orientation = 'E';
+        }
+        
+        if (orientation) {
+            socket.emit('direction-update', orientation);
+            data.preventDefault();
+        }
+    });
+    
+    $('body').keyup(function (data) {
+        socket.emit('direction-update', '');
+    });
+    
 
 
 });
