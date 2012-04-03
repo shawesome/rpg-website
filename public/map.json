@@ -123,7 +123,19 @@
                  "y":147
                 }, 
                 {
-                 "height":24,
+                 "height":20,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "width":33,
+                 "x":71,
+                 "y":252
+                }, 
+                {
+                 "height":18,
                  "name":"",
                  "properties":
                     {
@@ -131,35 +143,11 @@
                     },
                  "type":"",
                  "width":32,
-                 "x":71,
-                 "y":248
+                 "x":120,
+                 "y":253
                 }, 
                 {
-                 "height":23,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "type":"",
-                 "width":33,
-                 "x":119,
-                 "y":247
-                }, 
-                {
-                 "height":24,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "type":"",
-                 "width":33,
-                 "x":119,
-                 "y":279
-                }, 
-                {
-                 "height":24,
+                 "height":19,
                  "name":"",
                  "properties":
                     {
@@ -167,32 +155,44 @@
                     },
                  "type":"",
                  "width":31,
-                 "x":72,
-                 "y":279
-                }, 
-                {
-                 "height":24,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "type":"",
-                 "width":33,
-                 "x":71,
-                 "y":312
-                }, 
-                {
-                 "height":24,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "type":"",
-                 "width":33,
                  "x":120,
-                 "y":312
+                 "y":284
+                }, 
+                {
+                 "height":20,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "width":32,
+                 "x":72,
+                 "y":285
+                }, 
+                {
+                 "height":19,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "width":30,
+                 "x":73,
+                 "y":316
+                }, 
+                {
+                 "height":19,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "width":31,
+                 "x":120,
+                 "y":317
                 }, 
                 {
                  "height":29,
@@ -216,7 +216,7 @@
                  "type":"",
                  "width":18,
                  "x":263,
-                 "y":102
+                 "y":96
                 }, 
                 {
                  "height":86,
@@ -287,8 +287,8 @@
                     },
                  "type":"",
                  "width":17,
-                 "x":391,
-                 "y":106
+                 "x":392,
+                 "y":99
                 }, 
                 {
                  "height":181,
@@ -419,8 +419,8 @@
                     },
                  "type":"",
                  "width":56,
-                 "x":867,
-                 "y":282
+                 "x":868,
+                 "y":277
                 }, 
                 {
                  "height":39,
@@ -456,7 +456,7 @@
                  "type":"",
                  "width":47,
                  "x":543,
-                 "y":59
+                 "y":54
                 }, 
                 {
                  "height":55,
@@ -583,7 +583,7 @@
                  "name":"",
                  "properties":
                     {
-                     "content":"derp"
+                     "content":"welcome"
                     },
                  "type":"",
                  "width":27,
@@ -595,7 +595,7 @@
                  "name":"",
                  "properties":
                     {
-
+                     "content":"about-site"
                     },
                  "type":"",
                  "width":29,
@@ -607,7 +607,7 @@
                  "name":"",
                  "properties":
                     {
-
+                     "content":"about-me"
                     },
                  "type":"",
                  "width":34,
