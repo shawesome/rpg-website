@@ -2,6 +2,7 @@
     <head>
         <title>BATTLE!</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" type="text/css" href="keys.css" />
         
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="/socket.io/socket.io.js"></script>
@@ -12,16 +13,24 @@
     <body>
         <div id="page">
             <div id="content">
-                <div id="derp">
-                    <h1>DERP</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lectus magna, vulputate eu, pharetra vel, ultricies egestas, quam. Nam ipsum justo, vehicula nec, aliquam in, pulvinar sed, augue. Sed vestibulum ligula. In nunc mi, pretium in, pharetra et, venenatis nec, leo. Vivamus nec neque. Morbi interdum, tortor sed viverra ultrices, turpis sem sagittis velit, non volutpat tortor libero id tortor. Nullam lacinia est sed nisl. Donec non nunc. Maecenas non tortor. Nullam egestas interdum ipsum. Aliquam egestas arcu sit amet lorem. </p>
+                <div id="welcome">
+                    <h1>Welcome to martin-shaw.co.uk</h1>
+                    <p>Use <span class="dark-keys"><kbd>&larr;</kbd> <kbd>&uarr;</kbd> <kbd>&darr;</kbd> <kbd>&rarr;</kbd></span> keys to move your <img src="link.png"/>.</p>
+                    <p>the pages in the site can be found inside the buildings.</p>
+                    <p class="protip"><strong>Pro tip:</strong> Get starting by holding <kbd>&darr;</kbd>.<p>
                 </div>
-                <div id="herp">
-                    <h1>HERP</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lectus magna, vulputate eu, pharetra vel, ultricies egestas, quam. Nam ipsum justo, vehicula nec, aliquam in, pulvinar sed, augue. Sed vestibulum ligula. In nunc mi, pretium in, pharetra et, venenatis nec, leo. Vivamus nec neque. Morbi interdum, tortor sed viverra ultrices, turpis sem sagittis velit, non volutpat tortor libero id tortor. Nullam lacinia est sed nisl. Donec non nunc. Maecenas non tortor. Nullam egestas interdum ipsum. Aliquam egestas arcu sit amet lorem. </p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lectus magna, vulputate eu, pharetra vel, ultricies egestas, quam. Nam ipsum justo, vehicula nec, aliquam in, pulvinar sed, augue. Sed vestibulum ligula. In nunc mi, pretium in, pharetra et, venenatis nec, leo. Vivamus nec neque. Morbi interdum, tortor sed viverra ultrices, turpis sem sagittis velit, non volutpat tortor libero id tortor. Nullam lacinia est sed nisl. Donec non nunc. Maecenas non tortor. Nullam egestas interdum ipsum. Aliquam egestas arcu sit amet lorem. </p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lectus magna, vulputate eu, pharetra vel, ultricies egestas, quam. Nam ipsum justo, vehicula nec, aliquam in, pulvinar sed, augue. Sed vestibulum ligula. In nunc mi, pretium in, pharetra et, venenatis nec, leo. Vivamus nec neque. Morbi interdum, tortor sed viverra ultrices, turpis sem sagittis velit, non volutpat tortor libero id tortor. Nullam lacinia est sed nisl. Donec non nunc. Maecenas non tortor. Nullam egestas interdum ipsum. Aliquam egestas arcu sit amet lorem. </p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lectus magna, vulputate eu, pharetra vel, ultricies egestas, quam. Nam ipsum justo, vehicula nec, aliquam in, pulvinar sed, augue. Sed vestibulum ligula. In nunc mi, pretium in, pharetra et, venenatis nec, leo. Vivamus nec neque. Morbi interdum, tortor sed viverra ultrices, turpis sem sagittis velit, non volutpat tortor libero id tortor. Nullam lacinia est sed nisl. Donec non nunc. Maecenas non tortor. Nullam egestas interdum ipsum. Aliquam egestas arcu sit amet lorem. </p>
+                <div id="about-me">
+                    <img src="http://www.gravatar.com/avatar/229da2427042349c647e3a56183bd97f.png"/>
+                    <h1>About Me</h1>
+                    <p>Avid gamer, especially this <a href="http://www.leagueoflegends.com">one</a>.</p>
+                    <p>I work for these <a href="http://www.meanbee.com">lads</a>.</p>
+                    <p>I dig my alternative music, <a href="http://www.last.fm/user/shawesome89">last.fm</a> can tell you more.</p>
+                    <p>Love making cool stuff!</p>
+                </div>
+                <div id="about-site">
+                    <h1>About this site</h1>
+                    <p>Every web developer needs a personal site. I just didn't want mine to be too dull! :D</p>
+                    <p>The site is made using <a href="http://nodejs.org/">node.js</a> and <a href="http://socket.io/">socket.io</a>. Credit to <a href="http://charas-project.net/">charas-project</a> for the sprite sheets.</p>
                 </div>
             </div>
             <div id="canvas-container">
@@ -29,12 +38,12 @@
                 <canvas id="entities" width="960" height="400"></canvas>
                 <canvas id="foreground" width="960" height="400"></canvas>
             </div>
+            <!-- Shhh! Don't tell anyone these images are here -->
+            <img id="tileset" style="display: none" src="village.png"/>
+            <img id="link_red" style="display: none" src="link_red.png"/>
+            <img id="link_blue" style="display: none" src="link_blue.png"/>
+            <img id="link_green" style="display: none" src="link_green.png"/>
         </div>
-        <!-- Shhh! Don't tell anyone these images are here -->
-        <img id="tileset" style="display: none" src="village.png"/>
-        <img id="link_red" style="display: none" src="link_red.png"/>
-        <img id="link_blue" style="display: none" src="link_blue.png"/>
-        <img id="link_green" style="display: none" src="link_green.png"/>
     </body>
 </html>
 
