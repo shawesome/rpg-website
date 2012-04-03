@@ -5,6 +5,7 @@ var FPS = 30;
 // Globals
 var id = 0;
 var map;
+var mapSize = {x: 0, y: 0};
 
 var express = require('express');
 var app = express.createServer()
@@ -28,6 +29,8 @@ app.get('/', function (req, res) {
 
 fs.readFile(__dirname + '/public/map.json', function(err, data) {
 	map = JSON.parse(data);
+    mapSize.x = map.width * map.tilewidth - map.tilewidth;
+    mapSize.y = map.height * map.tileheight - 16;
 });
 
 io.sockets.on('connection', function (socket) {
@@ -132,11 +135,20 @@ var Entity = function(pos, colour, npc, socketId) {
 
     this.canMoveTo = function(pos) {
         var impassableObjects = this.getObjectsAt(pos, "Impassable");
-        if (impassableObjects.length == 0) {
-            return true;
-        } else {
+
+        // Can't move outside the map boundary
+        if (pos.x > mapSize.x || pos.y > mapSize.y || pos.x < 0 || pos.y < 0) {
             return false;
         }
+
+        // Can't move through impassable terrain
+        if (impassableObjects.length != 0) {
+            return false;
+        }
+
+        // We can move to this position
+        return true;
+
     }
 
     this.getObjectsAt = function(pos, layerName) {
