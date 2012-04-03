@@ -1,5 +1,5 @@
 // Constants
-var WALK_SPEED = 2;
+var WALK_SPEED = 4;
 var FPS = 30;
 
 // Globals
@@ -37,12 +37,11 @@ io.sockets.on('connection', function (socket) {
 	return entity.id;
     }));
 
-    var player = new Entity({ x: 110, y: 125 }, 'blue', false, socket.id);
+    var player = new Entity({ x: 110, y: 135 }, 'blue', false, socket.id);
     entities.push(player);
     
     io.sockets.emit('new-player', player.id); 
 
-    
     socket.on('direction-update', function (data) {
         if (data == 'N') {
 	    player.action = 'walk'
@@ -60,6 +59,8 @@ io.sockets.on('connection', function (socket) {
             player.action = 'stationary';
         }
     });
+
+    socket.emit('show-content', 'welcome');
 });
 
 var Entity = function(pos, colour, npc, socketId) {
@@ -67,7 +68,7 @@ var Entity = function(pos, colour, npc, socketId) {
     this.pos = pos;
     this.colour = colour;
     this.socketId = socketId;
-    this.isViewingPage = false;
+    this.isViewingPage = true;
     this.action = 'stationary';
     this.orientation = 'down';
     
