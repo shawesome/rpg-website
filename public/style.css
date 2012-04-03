@@ -52,3 +52,10 @@ body {
 #about-me img {
     float: right;
 }
+
+#social-links {
+    text-align: right;
+    margin-right: 40px;
+
+}
+
