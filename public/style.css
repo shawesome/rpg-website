@@ -20,15 +20,19 @@ canvas {
 
 body {
     margin: 0;
+    background: url('dark-tex.png') repeat;
+    font-family: Helvetica, sans-serif;
+    color: white;
 }
 
 #page {
-    margin: auto;
+    margin: 20px auto;
     width: 1000px;
 }
 
 #content {
     position: relative;
+    color: black;
 }
 
 #canvas-container {
@@ -36,10 +40,15 @@ body {
 }
 
 #content div {
-	margin-top: 20px;
+    margin: 20px;
     position: absolute;
-	display: none;
-	background: white;
-	border: 10px black solid;
-	padding: 20px;
+    display: none;
+    background: white;
+    border: 10px black solid;
+    padding: 20px;
+    width: 860px;
+}
+
+#about-me img {
+    float: right;
 }
